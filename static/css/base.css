@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', Verdana, Geneva, Tahoma, sans-serif
+}
+
+.center-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    justify-content: center;
+    color: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 80vh;
+}
+
+/* Bootstrap btn fixes */
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+/* Global Recurring Classes */
+.bg-theme {
+    background-color: #090909;
+    color: white;
+}
+
+.text-stratis {
+    color: #dfb73e
+}
+
+@media screen and (max-width: 600px) {
+    footer { display: none; }
+}

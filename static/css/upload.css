@@ -1,0 +1,87 @@
+body {
+    min-height: 100vh;
+    background-color: #090909;
+}
+
+.head-container {
+    text-align: center;
+    margin-top: 10vh;
+}
+
+.header {
+    color: white;
+    font-size: large;
+    font-weight: bold;
+}
+
+.center-container {
+    background-color: #191919;
+    height: 50vh;
+    width: 40vw;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.content-container {
+    width: 100%;
+    text-align: center;
+}
+
+.file-icon {
+    font-size: 200px;
+    color: #090909;
+    opacity: 50%;
+}
+
+.text-container {
+    width: 100%;
+}
+
+.input-container {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+
+}
+
+
+input[type=file] {
+    color: transparent;
+    margin: 0 auto;
+    width: 5.75vw;
+    margin-top: 1vh;
+}
+
+.input {
+    text-align: center;
+}
+
+.upload-text {
+    clear: both;
+    width: 100%;
+    display: inline-block;
+    margin-top: 3vh;
+    color: gray;
+    opacity: 75%;
+}
+
+
+.upload-btn {
+    margin-top: 3vh;
+}
+
+
+@media screen and (max-width: 600px) {
+    .center-container {
+        width: 80vw;
+        height: 55vh;
+    }
+
+    .file-icon {
+        font-size: 150px;
+    }
+
+    input[type=file] {
+        width: 28vw;
+    }
+}
