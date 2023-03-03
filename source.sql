@@ -81,7 +81,7 @@ INSERT INTO `settings` (
 VALUES (
         1,
         'Image Uploader',
-        'A simple and easy to use ShareX server made by Stratis Development',
+        'A simple and easy to use ShareX server made by icedoesjs on Github',
         NULL
     );
 --
