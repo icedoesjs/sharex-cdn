@@ -39,7 +39,7 @@ def index():
             return redirect('auth.unauthorized')
         files = get_files(str(user.id))
         key = admin[0].auth
-        return render_template('index.html', total=get_total_files(str(user.id)), size=get_total_size(str(user.id)), files=files, u_id=str(user.id), auth=key)
+        return render_template('index.html', size=get_total_size(str(user.id)), total=get_total_files(str(user.id)), files=files, u_id=str(user.id), auth=key)
     else:
         return redirect(url_for('auth.login'))
 
@@ -69,6 +69,8 @@ def get_total_files(id):
 
 def get_total_size(id):
     cwd = os.getcwd()
+    if not os.path.exists(os.path.join(cwd, 'storage', id)):
+        os.makedirs(os.path.join(cwd, 'storage', id))
     dir = os.path.join(cwd, 'storage', id)
     size = 0
     for dirpath, dirnames, filenames in os.walk(dir):
@@ -81,8 +83,6 @@ def get_total_size(id):
 
 def get_files(id):
     cwd = os.getcwd()
-    if not os.path.exists(os.path.join(cwd, 'storage', id)):
-        os.makedirs(os.path.join(cwd, 'storage', id))
     dir = os.path.join(cwd, 'storage', id)
     files = {}
     for dirpath, dirnames, filenames in os.walk(dir):
@@ -115,7 +115,7 @@ def get_type(filename):
     images = ['jpg', 'png', 'jpeg', 'gif']
     file = ['txt']
     audio = ["wav", "mp3"]
-    code = ["py", "js", "php", "ts", "cpp", "html", "cs", "json", "css", "sql"]
+    code = ["py", "js", "php", "ts", "cpp", "html", "cs", "json", "css", "sql", "asm"]
     video = ["mov", "mp4"]
     folder = ["zip", "rar", "7z"]
     extension = filename.split(".")[1]
