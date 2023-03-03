@@ -115,7 +115,7 @@ def get_type(filename):
     images = ['jpg', 'png', 'jpeg', 'gif']
     file = ['txt']
     audio = ["wav", "mp3"]
-    code = ["py", "js", "php", "ts", "cpp", "html", "cs", "json", "css", "sql", "asm"]
+    code = ["py", "js", "php", "ts", "cpp", "html", "cs", "json", "css", "sql", "asm", "c", "rs"]
     video = ["mov", "mp4"]
     folder = ["zip", "rar", "7z"]
     extension = filename.split(".")[1]
