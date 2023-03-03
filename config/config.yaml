@@ -1,0 +1,8 @@
+mysql: 'mysql+pymysql://username:password@host/database'
+mysql_track_modifications: False,
+
+discord:
+  client_id: 'DISCORD_CLIENT_ID'
+  client_secret: 'DISCORD_CLIENT_SECRET'
+  redirect_uri: 'http://yourdomain.net/callback'
+

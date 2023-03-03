@@ -1,0 +1,32 @@
+body {
+    min-height: 100vh;
+    background-color: #090909;
+}
+
+
+a:hover {
+    color: white
+}
+
+.navbar {
+    display: none;
+}
+
+.content-container {
+    margin-top: 3vh;
+    text-align: center;
+    height: fit-content;
+    width: 50vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tip {
+    width: 100%;
+}
+
+.go-home {
+    width: 15%;
+    margin-top: 2vh;
+}

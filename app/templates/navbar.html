@@ -1,0 +1,43 @@
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light nav-nonadmin mobile-smallfont">
+    <div class="container">
+        <a class="navbar-brand me-2 text-white" href="/">
+            {{session["name"]}}
+        </a>
+
+    <button
+        class="navbar-toggler text-white border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarButtonsExample"
+        aria-controls="navbarButtonsExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            </li>
+        </ul>
+
+        <div class="d-flex align-items-center">
+            {% if session['u_id'] in session['admins'] %}
+            <a class="btn me-3 nohover text-white" href="/admin">
+                Admin
+            </a>
+            <a class="btn me-3 nohover text-white" href="/admin/users">
+                Users
+            </a>
+            {% endif %}
+            <a href="/" class="btn px-3 me-3 nohover text-white">
+                <i class="fa-solid fa-user"></i>
+            </a>
+        </div>
+        </div>
+    </div>
+</nav>

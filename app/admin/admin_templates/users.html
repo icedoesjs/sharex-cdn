@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .center-container {
+            overflow: auto;
+        }
+        .content-container {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<div class="head-container">
+    <h1 class="header">Site Users</h1>
+    <button type="button" class="btn btn-success btn-sm upload-btn mt-1"><span class="bi-plus"></span><a href="/admin/add" class="text-decoration-none text-white">&nbsp; Add User</a></button>
+</div>
+<div class="center-container">
+    <div class="content-container">
+        <table class="users" id="user-table" cellspacing="0">
+            <tr>
+                <th scope="col">User ID</th>
+                <th scope="col">Max Images</th>
+                <th scope="col">Perm Level</th>
+                <th scope="col"></th>
+            </tr>
+            {% for key, value in admins.items() %}
+            <tr class="user-card">
+                <td scope="row" data-label="User ID">{{value['user_id']}}</td>
+                <td data-label="Max Images">{{value['storage']}}</td>
+                <td data-label="Perm Level">{{value['perm']}}</td>
+                <td><a href="/admin/remove/{{key}}" class="text-decoration-none"><i class="fa-solid fa-trash delete-icon"></i></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+    {% endblock %}

@@ -1,0 +1,232 @@
+body {
+    min-height: 100vh;
+    background-color: #090909;
+    line-height: 1.25;
+}
+
+
+.content-container {
+    margin-top: 3vh;
+    text-align: center;
+    height: fit-content;
+    width: 50vw;
+    padding-bottom: 5vh;
+}
+
+.header {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.caption {
+    font-size: medium;
+}
+
+.key-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 1vh;
+}
+
+.secret-text {
+    margin-top: 1vh;
+    color: transparent;
+    text-shadow: 0 0 8px white
+}
+
+.secret-text:hover {
+    color: white;
+    text-shadow: none;
+}
+
+
+.search-container {
+    width: 100%;
+    height: fit-content;
+    margin-top: 8vh;
+}
+
+
+.input-icon {
+    width: 100%;
+    height: fit-content;
+}
+
+
+.user-search {
+    height: 5vh;
+    color: #5E5E5E;
+    width: 100%;
+    background-color: #191919;
+    border-radius: 10px;
+    border-color: transparent;
+    padding-left: 1rem;
+    padding-bottom: 0.39vh;
+    font-family: 'Segoe UI Italic', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-search:focus {
+    outline: none;
+    cursor: text;
+}
+
+
+.images {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5vh;
+    table-layout: fixed;
+    padding: 0;
+    margin: 0;
+    margin-top: 5vh;
+}
+
+.images th, .images td {
+    padding: .625em;
+    text-align: center;
+}
+
+
+.images th {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: small;
+    letter-spacing: .03em;
+}
+
+.images td {
+    border-style: none solid solid none;
+    border: solid 1px #191919;
+    border: 5px;
+}
+
+.th-name {
+    text-align: left;
+    padding-left: 1vw;
+} 
+
+.td-name {
+    text-align: left;
+    padding-left: 1vw;
+    font-size: 15px;
+} 
+
+.image-card {
+    height: 4vh;
+    text-align: center;
+    background-color: #191919;
+} 
+
+
+.image-name {
+    color: #3366CC;
+    font-weight: normal;
+}
+
+
+.image-icon {
+    margin-right: 1rem;
+}
+
+.delete-icon {
+    color: red;
+    width: 1.5vw;
+}
+
+
+
+/* Table border fixes, applying to first item in cell and last */
+tr td:first-child {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+tr td:last-child {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* Responsive Table Query */
+@media screen and (max-width: 600px) {
+    .input-icon i {
+        display: none;
+    }
+
+    .user-search {
+        text-align: start;
+        padding-left: 1rem;
+    }
+
+    .images {
+        border: 0;
+    }
+
+
+    .images thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .images tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+
+    .images td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .7em;
+        text-align: right;
+    }
+
+    .images td::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .images td:last-child {
+        border-bottom: 0;
+    }
+
+    .image-card {
+        height: fit-content;
+        text-align: end;
+    }
+
+    tr td:first-child {
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    tr td:last-child {
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    tr:first-child {
+        display: none;
+    }
+
+    .images th {
+        display: none;
+    }
+
+    .delete-icon {
+        color: red;
+        padding-right: 5vw;
+    }
+
+}
