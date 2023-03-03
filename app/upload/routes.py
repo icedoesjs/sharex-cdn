@@ -11,7 +11,7 @@ import fnmatch
 upload = Blueprint('upload', __name__, template_folder='upload_templates')
 image_extentions = [".png", ".jpeg", ".jpg", ".gif"]
 audio_extensions = [".wav", ".mp3"]
-code_extensions = [".py", ".js", ".php", ".ts", ".cpp", ".html", '.cpp', ".cs", ".json", ".css", ".sql", ".asm"]
+code_extensions = [".py", ".js", ".php", ".ts", ".cpp", ".html", '.cpp', ".cs", ".json", ".css", ".sql", ".asm", ".c", ".rs"]
 video_extensions = [".mov", ".mp4"]
 folder_extensions = [".zip", ".rar", ".7z"]
 
@@ -85,6 +85,12 @@ def get_image(user_id, file):
         html_file.close()
         code.insert(0, '\n <!-- This document may not be perfect and formatting could be messed up. -->\n')
         return render_template('code.html', code=html.escape(''.join(code)), file=name, type="xml")
+    elif ext == ".c":
+        code_f = open(file, encoding='utf8')
+        code = code_f.readlines()
+        code_f.close()
+        code.insert(0, '\n // This C file formatting may be messed up, the CDN has attempted to correct mistakes in formatting.\n')
+        return render_template('code.html', code=''.join(code), file=name, type="h")
     elif ext in code_extensions:
         code_f = open(file, encoding='utf8')
         code = code_f.readlines()
@@ -95,7 +101,7 @@ def get_image(user_id, file):
         # Send download back
         return send_file(file)
     else:
-        return render_template('not_supported.html', text=f'If you would like support for {file} files, please contact Stratis')
+        return render_template('not_supported.html', text=f'If you would like support for {file} files, please contact icedoesjs')
 
 @upload.route('/play/<user_id>/<file>')
 def post_file(user_id, file):
