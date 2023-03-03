@@ -11,7 +11,7 @@ import fnmatch
 upload = Blueprint('upload', __name__, template_folder='upload_templates')
 image_extentions = [".png", ".jpeg", ".jpg", ".gif"]
 audio_extensions = [".wav", ".mp3"]
-code_extensions = [".py", ".js", ".php", ".ts", ".cpp", ".html", '.cpp', ".cs", ".json", ".css", ".sql"]
+code_extensions = [".py", ".js", ".php", ".ts", ".cpp", ".html", '.cpp', ".cs", ".json", ".css", ".sql", ".asm"]
 video_extensions = [".mov", ".mp4"]
 folder_extensions = [".zip", ".rar", ".7z"]
 
