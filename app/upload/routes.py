@@ -83,13 +83,13 @@ def get_image(user_id, file):
         html_file = open(file)
         code = html_file.readlines()
         html_file.close()
-        code.insert(0, '\n <!-- This document may not be perfect and formatting could be messed up. -->\n')
+        code.insert(0, '\n <!-- This HTML document has been beautified. -->\n')
         return render_template('code.html', code=html.escape(''.join(code)), file=name, type="xml")
     elif ext == ".c":
         code_f = open(file, encoding='utf8')
         code = code_f.readlines()
         code_f.close()
-        code.insert(0, '\n // This C file formatting may be messed up, the CDN has attempted to correct mistakes in formatting.\n')
+        code.insert(0, '\n // This C file formatting may be different then the original upload, the CDN has attempted to correct mistakes in formatting.\n')
         return render_template('code.html', code=''.join(code), file=name, type="h")
     elif ext in code_extensions:
         code_f = open(file, encoding='utf8')
