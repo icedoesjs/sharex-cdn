@@ -16,7 +16,7 @@ body {
 
 .center-container {
     background-color: #191919;
-    height: 50vh;
+    height: fit-content;
     width: 40vw;
     border-radius: 5px;
     padding: 0;
@@ -26,6 +26,7 @@ body {
     width: 80%;
     text-align: center;
     margin-top: 5vh;
+    margin-bottom: 2vh;
 }
 
 .setting-form {
@@ -114,7 +115,7 @@ tr td:last-child {
 }
 
 /* Responsive Table Query */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1600px) {
     .users {
         border: 0;
     }
@@ -145,10 +146,6 @@ tr td:last-child {
     }
 
     .users td::before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
         content: attr(data-label);
         float: left;
         font-weight: bold;

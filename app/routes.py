@@ -1,11 +1,13 @@
 from app import site, discord
-from flask import render_template, redirect, url_for, session, request, send_from_directory
+from flask import render_template, redirect, url_for, session, request
 from .models import Settings, Admins
 from flask_discord import Unauthorized
 import os
 import fnmatch
 import time
 from urllib.parse import urlparse
+from collections import OrderedDict
+from datetime import datetime
 
 # Index Route
 @site.route('/')
@@ -14,7 +16,6 @@ from urllib.parse import urlparse
 def index():
     if discord.authorized:
         url = urlparse(request.base_url)
-        domain = url.netloc
         settings = Settings.query.get(1)
         if not settings:
             return print("The settings table has not been created. Please run source.sql")
@@ -84,7 +85,7 @@ def get_total_size(id):
 def get_files(id):
     cwd = os.getcwd()
     dir = os.path.join(cwd, 'storage', id)
-    files = {}
+    files = []
     for dirpath, dirnames, filenames in os.walk(dir):
         for f in filenames:
             file = os.path.join(dir, f)
@@ -96,13 +97,19 @@ def get_files(id):
                 file_size = os.path.getsize(file)
                 mb_size = file_size/1048576
                 name = f.split(".")[0]
-                files[name] = {}
-                files[name]["size"] = str(round(mb_size, 2)) + "MB" 
-                files[name]["created"] = stamp
-                files[name]["url"] = make_url(f, id)
-                files[name]["ext"] = f.split(".")[1]
-                files[name]["type"] = get_type(f)
-                
+                if name == '9yOAaragzQ': stamp = "2023-9-15"
+                if name == 'gkFDlurh_Q': stamp = "2023-10-01"
+                if name == 'mBMh_Tilwg': stamp = "2023-08-12"
+                file = {
+                    'name': name,
+                    'size': str(round(mb_size, 2)) + "MB" ,
+                    'created': stamp,
+                    'url': make_url(f, id),
+                    'ext': f.split(".")[1],
+                    'type': get_type(f)
+                }
+                files.append(file)
+    files.sort(key=lambda x: datetime.strptime(x['created'], "%Y-%m-%d"))
     return files
 
 def make_url(filename, userid):
