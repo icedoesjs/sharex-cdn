@@ -1,6 +1,9 @@
 # sharex-cdn
 ShareX upload server written in Python using flask
 
+## Preview
+![Preview](https://cdn.iceyy.dev/storage/389558396195438593/BoJ1-peilg.png)
+
 ## Setup
 - Install all requirements using **pip install -r requirements.txt**
 - Setup config found in **config/config.yaml**
@@ -9,11 +12,10 @@ ShareX upload server written in Python using flask
 - Setup for deploying via NGINX and Uwsgi can be found here: https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-20-04
 
 ## ShareX uploader profile
-![ShareX settings](https://cdn.iceyy.dev/storage/389558396195438593/ywLIyLmz7A.png)
+![ShareX settings](https://cdn.iceyy.dev/storage/389558396195438593/wumeGv_eMw.png)
 
 ## Notes
 - This project was made as a paid product which is now updated and moved to a different language
 - This project does take up physical storage and supports code (syntax highligting built-in)
 - Uwsgi files and ini config is provided making it easy to host using nginx and a ubuntu service (preferred)
 - This project can be hosted on cloud hosting and has been proven to work reliably, documentation for that is not provided here (a python node is needed)
-

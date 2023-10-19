@@ -43,8 +43,8 @@ INSERT INTO `admins` (
     )
 VALUES (
         1,
-        '389558396195438593',
-        '389558396195438593',
+        'YOUR_DISCORD_ID',
+        'YOUR_DISCORD_ID',
         '100',
         '8wjZWrnDLs_9Rg',
         1
