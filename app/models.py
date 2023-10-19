@@ -33,7 +33,7 @@ class Settings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25))
     description = db.Column(db.String(500))
-    webhook = db.Column(db.String(125))
+    webhook = db.Column(db.String(200))
     
     def __init__(self, name, description, webhook):
         self.name = name 
