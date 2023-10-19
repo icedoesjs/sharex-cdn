@@ -2,7 +2,7 @@
 ShareX upload server written in Python using flask
 
 ## Preview
-![Preview](https://cdn.iceyy.dev/storage/389558396195438593/Mkho8wtYnw.png)
+![Preview](https://cdn.iceyy.dev/storage/389558396195438593/BoJ1-peilg.png)
 
 ## Setup
 - Install all requirements using **pip install -r requirements.txt**
