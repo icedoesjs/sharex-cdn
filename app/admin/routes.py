@@ -1,11 +1,11 @@
-from flask import Blueprint, redirect, url_for, render_template, session, request, flash
+from flask import Blueprint, redirect, url_for, render_template, session, request, flash, abort
 from app import discord 
 from flask_discord import requires_authorization
 from app.core.Admin import isAdmin, checkPerms
 from .forms import ChangeSettings, AddAdmin
 from app.models import Settings, Admins
 from app.core.Auth import generateAuthKey
-from app.core.Webhook import sendInit, SendWebhook
+from app.core.Webhook import sendInit
 
 admin = Blueprint('admin', __name__, template_folder='admin_templates')
 
@@ -33,7 +33,7 @@ def admin_settings():
                 settings.update()
                 return redirect(url_for('index'))
             else:
-                return 'Webhook URL is invalid', 500
+                return abort(500, description="Webhook is invalid")
     form.name.data = session['name']
     form.description.data = session['description']
     form.webhook.data = session['webhook']

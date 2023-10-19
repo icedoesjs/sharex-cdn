@@ -116,6 +116,11 @@ tr td:last-child {
 
 /* Responsive Table Query */
 @media screen and (max-width: 1600px) {
+
+    .center-container {
+        height: fit-content;
+    }
+
     .users {
         border: 0;
     }

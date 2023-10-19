@@ -43,8 +43,8 @@ INSERT INTO `admins` (
     )
 VALUES (
         1,
-        'YOURUSERID',
-        'YOURUSERID',
+        '389558396195438593',
+        '389558396195438593',
         '100',
         '8wjZWrnDLs_9Rg',
         1
@@ -67,7 +67,7 @@ CREATE TABLE `settings` (
     `id` int(11) NOT NULL,
     `name` varchar(25) DEFAULT NULL,
     `description` varchar(500) DEFAULT NULL,
-    `webhook` varchar(25) DEFAULT NULL
+    `webhook` varchar(200) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1 COLLATE = latin1_swedish_ci;
 --
 -- Dumping data for table `settings`

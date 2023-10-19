@@ -1,12 +1,10 @@
 from app import site, discord
-from flask import render_template, redirect, url_for, session, request
+from flask import render_template, redirect, url_for, session, request, jsonify
 from .models import Settings, Admins
 from flask_discord import Unauthorized
 import os
 import fnmatch
 import time
-from urllib.parse import urlparse
-from collections import OrderedDict
 from datetime import datetime
 
 # Index Route
@@ -15,7 +13,6 @@ from datetime import datetime
 @site.route('/index')
 def index():
     if discord.authorized:
-        url = urlparse(request.base_url)
         settings = Settings.query.get(1)
         if not settings:
             return print("The settings table has not been created. Please run source.sql")
@@ -54,6 +51,10 @@ def unauth(e):
 @site.errorhandler(404)
 def four_o_four(e):
     return render_template('404.html', error='The page you attempted to access does not exist.')
+
+@site.errorhandler(401)
+def four_o_one(e):
+    return render_template('401.html', error=e.description)
 
 @site.errorhandler(500)
 def server_error(e):

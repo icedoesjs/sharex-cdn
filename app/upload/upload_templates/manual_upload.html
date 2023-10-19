@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+</head>
+
+<div class="head-container">
+    <h1 class="header">Upload File</h1>
+</div>
+<div class="center-container">
+    <div class="content-container">
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-outline mb-4">
+                {{ form.file(class='form-control setting-form')}}
+            </div>
+            {{ form.submit(class='btn btn-success btn-block mb-2 change-btn', value='Upload File')}}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

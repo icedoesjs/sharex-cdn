@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/error.css')}}">
+</head>
+
+<div class="center-container">
+    <div class="content-container">
+        <h1>Not Allowed</h1>
+        <span class="tip">{{error}}</span>
+        <button type="button" class="btn btn-danger go-home"><a href='/' class="text-decoration-none">Go Home</a></button>
+    </div>
+</div>
+{% endblock %}
