@@ -1,5 +1,5 @@
 import html
-from app import discord
+from app import discord, site
 from flask import Blueprint, url_for, render_template, redirect, request, send_file, abort
 from .forms import UploadFile
 from app.core.Webhook import SendWebhook
@@ -10,6 +10,7 @@ import os
 from PIL import Image
 import secrets
 import fnmatch
+import datetime
 
 upload = Blueprint('upload', __name__, template_folder='upload_templates')
 image_extentions = [".png", ".jpeg", ".jpg", ".gif"]
@@ -21,6 +22,9 @@ folder_extensions = [".zip", ".rar", ".7z"]
 
 @upload.route('/manual/upload', methods=['GET', 'POST'])
 def upload_manual():
+    '''
+    The route used for manual uploads.
+    '''
     user = discord.fetch_user()
     if not isAdmin(user): return redirect('auth.unauthorized') 
     form = UploadFile()
@@ -50,9 +54,12 @@ def upload_manual():
             return redirect(url_for('index'))
     return render_template('manual_upload.html', form=form)
 
-# ShareX api route
+
 @upload.route('/upload', methods=['POST'])
 def upload_sharex():
+    '''
+    The route ShareX will post to.
+    '''
     attr = request.form.to_dict(flat=False)
     if not validKey(attr['auth'][0]): return f"{attr['auth'][0]} is not a valid auth key.", 401
     if not validUser(attr['user'][0]): return f"{attr['user'][0]} is not a valid user.", 401
@@ -97,28 +104,29 @@ def upload_sharex():
     else:
         return f"{extension} is not a file that can be uploaded on this server.", 401
 
-# Internal Storage
+
 @upload.route('/storage/<user_id>/<file>')
 def get_image(user_id, file):
-    # Return File
-    # Does File Exist
+    '''
+    The route used to fetch and return files when requested.
+    '''
     cwd = os.getcwd()
     if not os.path.exists(os.path.join(cwd, 'storage', user_id, file)):
-        return render_template('not_supported.html', text='The file requested was not found')
+        return render_template('not_supported.html', text='The file requested was not found')\
+    # File exists, continue on
     file = os.path.join(cwd, 'storage', user_id, file)
     ext = os.path.splitext(file)[1]
     name = os.path.basename(file)
-    if ext in image_extentions or ext == '.txt':
+    # This could 100% be cleaned up, but it does indeed work lol
+    if ext in image_extentions:
         return send_file(file)
-    elif ext in audio_extensions:
-        return send_file(file)
-    elif ext in video_extensions:
+    elif ext in audio_extensions or ext in video_extensions or ext == '.txt' or ext in folder_extensions:
         return send_file(file)
     elif ext == ".html":
         html_file = open(file)
         code = html_file.readlines()
         html_file.close()
-        code.insert(0, '\n <!-- This HTML document has been beautified. -->\n')
+        code.insert(0, '\n <!-- This HTML document has been beautified by the CDN. -->\n')
         return render_template('code.html', code=html.escape(''.join(code)), file=name, type="xml")
     elif ext == ".c":
         code_f = open(file, encoding='utf8')
@@ -132,28 +140,24 @@ def get_image(user_id, file):
         code_f.close()
         code.insert(0, '\n')
         return render_template('code.html', code=''.join(code), file=name, type=ext.split(".")[1])
-    elif ext in folder_extensions:
-        # Send download back
-        return send_file(file)
     else:
-        return render_template('not_supported.html', text=f'If you would like support for {file} files, please contact icedoesjs')
-
-@upload.route('/play/<user_id>/<file>')
-def post_file(user_id, file):
-    cwd = os.getcwd()
-    path = os.path.join(cwd, 'storage', user_id, file)
-    return send_file(path)
+        return render_template('not_supported.html', text=f'If you would like support for {file} files, please open an issue on the Github repo.')
 
 
-# Delete Image
 @upload.route('/delete/file/<name>/<ext>/<user_id>')
 def delete_file(name, ext, user_id):
+    '''
+    The route used to delete files.
+    '''
     cwd = os.getcwd()
     file = os.path.join(cwd, 'storage', user_id, name + "." + ext)
     os.remove(file)
     return redirect(url_for('index'))
 
 def get_url(filename, userid, ext):
+    '''
+    A small internal function used to fetch file links
+    '''
     if "manual" in request.base_url:
         base = request.base_url.split("manual")[0]
     else:
@@ -161,7 +165,28 @@ def get_url(filename, userid, ext):
     return base + f"storage/{userid}/{filename}{ext}"
 
 def check_total_files(u_id):
+    '''
+    Used to check a total number of files in a user's storage.
+    '''
     cwd = os.getcwd()
     dir = os.path.join(cwd, 'storage', u_id)
     count = len(fnmatch.filter(os.listdir(dir), '*.*'))
     return count
+
+def format_title(title: str, file):
+    '''
+    Format the title of the embed
+    
+    Params:
+        title (str): The title of the embed from the config
+        file: The file path of the current file we are creating a page for.
+    '''
+    ext = os.path.splitext(file)[1]
+    name = os.path.basename(file)
+    size = os.path.getsize(file) / 1024
+    date = os.path.getmtime(file)
+    variables = {'%fs': f'{size:.2f} MB', '%fd': f'{datetime.datetime.fromtimestamp(date)}', '%ft': ext, '%fne': name + ext, '%fn': name}
+    for v in variables.keys():
+        if v in title:
+            title = title.replace(v, variables[v])
+    return title

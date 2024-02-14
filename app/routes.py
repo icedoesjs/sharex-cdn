@@ -1,5 +1,5 @@
 from app import site, discord
-from flask import render_template, redirect, url_for, session, request, jsonify
+from flask import render_template, redirect, url_for, session, request
 from .models import Settings, Admins
 from flask_discord import Unauthorized
 import os

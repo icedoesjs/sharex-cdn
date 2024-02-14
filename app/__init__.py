@@ -1,25 +1,39 @@
 from flask import Flask, Blueprint
-from .config_parser import Config
-from flask_migrate import Migrate
+import os
+from config.ConfigParser import load_config
 from flask_discord import DiscordOAuth2Session
-from .models import db
+from flask_migrate import Migrate
+from app.models import db
+import secrets
 
 site = Flask(__name__)
 
-# Site config
-config = Config().__dict__
-site.config["SECRET_KEY"] = config["secret_key"]
-# Set discord values
-site.config["DISCORD_CLIENT_ID"] = config["config"]["discord"]["client_id"]
-site.config["DISCORD_CLIENT_SECRET"] = config["config"]["discord"]["client_secret"]
-site.config["DISCORD_REDIRECT_URI"] = config["config"]["discord"]["redirect_uri"]
-# Set DB Values
-site.config["SQLALCHEMY_DATABASE_URI"] = config["config"]["mysql"]
-site.config["SQLALCHEMY_TRACK_MODIFCATIONS"] = config["config"]["mysql_track_modifications"]
+class ShareXCDN(Flask):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.config_file = load_config(os.path.abspath(os.path.join(os.getcwd(), 'config', 'config.yaml')))
+    
+    def setup(self) -> None:
+        # Build connection string for MySql
+        self.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://' + self.config_file['mysql']['user'] + f':{self.config_file["mysql"]["password"]}' + f'@{self.config_file["mysql"]["host"]}/' + self.config_file["mysql"]["database"]
+        self.config['SQLALCHEMY_TRACK_MODIFCATIONS'] = False
+        # Set all discord variables
+        self.config['DISCORD_CLIENT_ID'] = self.config_file['discord']['client_id']
+        self.config['DISCORD_CLIENT_SECRET'] = self.config_file['discord']['client_secret']
+        self.config['DISCORD_REDIRECT_URI'] = self.config_file['discord']['redirect_uri']
+        # Set secret key
+        self.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+        
+        os.environ["ROOT"] = os.getcwd()
+        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = str(self.config_file['insecure_transport'])
+        # Future plans to heavily utilize this subclass for a lot of methods, like it should have been wrote.
 
 
+site = ShareXCDN(__name__)
+site.setup()
 discord = DiscordOAuth2Session(site)
 
+# Routes
 from . import routes
 from .upload.routes import upload
 from .auth.routes import auth
@@ -29,6 +43,7 @@ site.register_blueprint(upload)
 site.register_blueprint(auth)
 site.register_blueprint(admin)
 site.register_blueprint(serve_storage)
+
 
 db.init_app(site)
 migrate = Migrate(site, db)

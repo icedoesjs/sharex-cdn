@@ -1,0 +1,16 @@
+<!-- Not utilized yet -->
+
+<head>
+    <title>{{title}}</title>
+    <!-- Discord Meta Tags -->
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:type" content="website">
+    <meta property="theme-color" content="{{color}}">
+    <!-- End Meta Tags -->
+</head>
+
+<body>
+    <!-- Image shown here -->
+    <p>{{image_path}}</p>
+    <img src="{{url_for('files.static', filename=image_path)}}">
+</body>

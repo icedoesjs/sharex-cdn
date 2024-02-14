@@ -1,8 +1,12 @@
-mysql: 'mysql+pymysql://username:password@host/database'
-mysql_track_modifications: False,
+insecure_transport: true
+
+mysql:
+  host: '127.0.0.1'
+  user: 'root'
+  password: 'password'
+  database: 'cdn'
 
 discord:
   client_id: 'DISCORD_CLIENT_ID'
   client_secret: 'DISCORD_CLIENT_SECRET'
-  redirect_uri: 'http://yourdomain.net/callback'
-
+  redirect_uri: 'https://yourdomain/upload'
