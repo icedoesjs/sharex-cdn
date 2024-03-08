@@ -6,8 +6,6 @@ from flask_migrate import Migrate
 from app.models import db
 import secrets
 
-site = Flask(__name__)
-
 class ShareXCDN(Flask):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
